@@ -1,12 +1,11 @@
-#!/bin/perl
-
-use strict;
+use common::sense;
 use Tk;
+use Win32::GUI;
 
 my $MAX_COLS         = 10 ;       # 10 cells wide
 my $MAX_ROWS         = 15;       # 15 cells high
-my $TILE_WIDTH       = 8;        # width of each tile in pixels 
-my $TILE_HEIGHT      = 8;        # height of each tile in pixels 
+my $TILE_WIDTH       = 42;        # width of each tile in pixels 
+my $TILE_HEIGHT      = 42;        # height of each tile in pixels 
 
 my $shoot_row        = int($MAX_ROWS/2);
 my @cells = ();
@@ -422,6 +421,10 @@ sub help {
 }
 
 sub init {
+    # hide Win32 Debugging Console
+    my $hw = Win32::GUI::GetPerlWindow();
+    Win32::GUI::Hide($hw);
+
     create_screen();
     bind_key('Left', \&move_left);
     bind_key('Right', \&move_right);
