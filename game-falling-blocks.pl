@@ -395,15 +395,18 @@ sub quit_game {
 sub new_splash {
     $w_splash = MainWindow->new(-background => '#282828');
     $w_splash->title('Falling Blocks -- Help');
-    $w_splash->Label(-text => "#Falling Blocks",-background => '#282828')->pack(-side => 'top', -anchor => 'nw');
-    $w_splash->Label(-text => "---------------",-background => '#282828')->pack(-side => 'top', -anchor => 'nw');
+    $w_splash->Label(-text => " Falling Blocks",-background => '#282828')->pack(-side => 'top', -anchor => 'nw');
+    $w_splash->Label(-text => "------------------------",-background => '#282828')->pack(-side => 'top', -anchor => 'nw');
     $w_splash->Label(-text => " ",-background => '#282828')->pack(-side => 'top', -anchor => 'nw');
     $w_splash->Label(-text => "\tUp\t-\tRotate current game piece",-background => '#282828')->pack(-side => 'top', -anchor => 'nw');
     $w_splash->Label(-text => "\tLeft\t-\tMove current game piece left",-background => '#282828')->pack(-side => 'top', -anchor => 'nw');
     $w_splash->Label(-text => "\tRight\t-\tMove current game piece right",-background => '#282828')->pack(-side => 'top', -anchor => 'nw');
     $w_splash->Label(-text => "\tDown\t-\tDrop current game piece to ground",-background => '#282828')->pack(-side => 'top', -anchor => 'nw');
+    $w_splash->Label(-text => " ",-background => '#282828')->pack(-side => 'top', -anchor => 'nw');
     $w_splash->Label(-text => "\tSpace\t-\tPause current game",-background => '#282828')->pack(-side => 'top', -anchor => 'nw');
     $w_splash->Label(-text => "\tEnter\t-\tBegin a new game",-background => '#282828')->pack(-side => 'top', -anchor => 'nw');
+    $w_splash->Label(-text => " ",-background => '#282828')->pack(-side => 'top', -anchor => 'nw');
+    $w_splash->Label(-text => "\tF1\t-\tHelp Screen",-background => '#282828')->pack(-side => 'top', -anchor => 'nw');
     $w_splash->Label(-text => " ",-background => '#282828')->pack(-side => 'top', -anchor => 'nw');
 }
 
@@ -422,8 +425,8 @@ sub help {
 
 sub init {
     # hide Win32 Debugging Console
-    my $hw = Win32::GUI::GetPerlWindow();
-    Win32::GUI::Hide($hw);
+#    my $hw = Win32::GUI::GetPerlWindow();
+#    Win32::GUI::Hide($hw);
 
     create_screen();
     bind_key('Left', \&move_left);
@@ -444,7 +447,10 @@ sub create_screen {
     $w_top = MainWindow->new;
     my $fmt_score = sprintf("%03i", $score);
     $w_top->title("Falling Blocks (${fmt_score})");
-
+    $w_top->maxsize(($MAX_COLS) * $TILE_WIDTH, ($MAX_ROWS)* $TILE_HEIGHT);
+    $w_top->minsize(($MAX_COLS) * $TILE_WIDTH, ($MAX_ROWS) * $TILE_HEIGHT);
+    $w_top->geometry(sprintf('%dx%d', ($MAX_COLS - 1) * $TILE_WIDTH, ($MAX_ROWS - 1) * $TILE_HEIGHT));
+    
     $w_heap = $w_top->Canvas('-width'  => $MAX_COLS * $TILE_WIDTH,
                              '-height' => $MAX_ROWS  * $TILE_HEIGHT,
                              '-border' => 1,
