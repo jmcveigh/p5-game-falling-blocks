@@ -425,8 +425,8 @@ sub help {
 
 sub init {
     # hide Win32 Debugging Console
-#    my $hw = Win32::GUI::GetPerlWindow();
-#    Win32::GUI::Hide($hw);
+    my $hw = Win32::GUI::GetPerlWindow();
+    Win32::GUI::Hide($hw);
 
     create_screen();
     bind_key('Left', \&move_left);
